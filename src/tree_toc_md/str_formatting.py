@@ -2,10 +2,7 @@ import re
 import urllib.parse
 from typing import Tuple
 
-from tree_toc_md.constants import (
-        MAX_LENGTH,
-        TRUNCATE_SUFFIX
-)
+from tree_toc_md.constants import MAX_LENGTH, TRUNCATE_SUFFIX
 
 
 def starts_with_number(name: str) -> Tuple[bool, int]:

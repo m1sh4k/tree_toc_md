@@ -1,16 +1,18 @@
 import os
-from tree_toc_md.constants import INDENT_STEP
 
+from tree_toc_md.constants import INDENT_STEP
 from tree_toc_md.str_formatting import (
-    sort_key,
-    truncate,
+    encode_for_github,
+    escape_for_wikilink,
     extract_display_name,
     extract_h1,
-    escape_for_wikilink,
-    encode_for_github
+    sort_key,
+    truncate,
 )
 
-def build_toc(root_dir: str, use_h1: bool, format_type: str, level: int = 0, root_path: str = '') -> str:
+
+def build_toc(root_dir: str, use_h1: bool, format_type: str,
+              level: int = 0, root_path: str = '') -> str:
     lines = []
     indent = INDENT_STEP * level
 
@@ -20,12 +22,20 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str, level: int = 0, roo
         return ""
 
     files = sorted(
-        [f for f in items if f.endswith('.md') and os.path.isfile(os.path.join(root_dir, f))],
+        [
+            f
+            for f in items
+            if f.endswith('.md')
+            and os.path.isfile(os.path.join(root_dir, f))],
         key=sort_key
     )
 
     subdirs = sorted(
-        [d for d in items if os.path.isdir(os.path.join(root_dir, d)) and not d.startswith('.')],
+        [
+            d
+            for d in items
+            if os.path.isdir(os.path.join(root_dir, d))
+            and not d.startswith('.')],
         key=sort_key
     )
 
@@ -41,7 +51,11 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str, level: int = 0, roo
         relative_path = relative_path.replace('\\', '/')
 
         if format_type == 'obsidian':
-            path_without_md = relative_path[:-3] if relative_path.endswith('.md') else relative_path
+            path_without_md = (
+                relative_path[:-3]
+                if relative_path.endswith('.md')
+                else relative_path
+            )
             escaped_display = escape_for_wikilink(display_name)
             lines.append(f"{indent}- [[{path_without_md}|{escaped_display}]]")
         else:  # github
@@ -64,7 +78,10 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str, level: int = 0, roo
 
         # Pass root_path recursively to maintain correct relative links
         current_root_path = root_path if root_path else root_dir
-        subdir_toc = build_toc(dir_path, use_h1, format_type, level + 1, current_root_path)
+        subdir_toc = build_toc(
+            dir_path, use_h1, format_type,
+            level + 1, current_root_path
+        )
 
         if subdir_toc:
             if format_type == 'obsidian':
