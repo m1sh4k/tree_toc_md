@@ -1,0 +1,16 @@
+[project]
+name = "tree-toc-md"
+version = "0.1.0"
+description = "This programm makes Table Of Contents of given directory using makrdown bullet-list with links to files."
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.0"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
