@@ -1,7 +1,7 @@
 import os
-from constants import INDENT_STEP
+from tree_toc_md.constants import INDENT_STEP
 
-from str_formatting import (
+from tree_toc_md.str_formatting import (
     sort_key,
     truncate,
     extract_display_name,

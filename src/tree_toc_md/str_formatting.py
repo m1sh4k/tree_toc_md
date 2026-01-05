@@ -1,7 +1,8 @@
 import re
 import urllib.parse
 from typing import Tuple
-from constants import (
+
+from tree_toc_md.constants import (
         MAX_LENGTH,
         TRUNCATE_SUFFIX
 )
