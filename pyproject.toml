@@ -1,6 +1,6 @@
 [project]
 name = "tree-toc-md"
-version = "1.0.0"
+version = "1.1.0"
 description = "This programm makes Table Of Contents of given directory using makrdown bullet-list with links to files."
 authors = [
     {name = "Your Name",email = "you@example.com"}
