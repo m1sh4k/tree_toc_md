@@ -36,7 +36,7 @@ def main():
         sys.exit(1)
 
     abs_dir = os.path.abspath(directory)
-    print(build_toc(abs_dir, use_h1, format_type, root_path=os.getcwd()))
+    print(build_toc(abs_dir, use_h1, format_type, root_path=abs_dir))
 
 
 if __name__ == "__main__":
