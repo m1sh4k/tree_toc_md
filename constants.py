@@ -1,0 +1,3 @@
+MAX_LENGTH = 60
+TRUNCATE_SUFFIX = "..."
+INDENT_STEP = "  "
