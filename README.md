@@ -9,7 +9,7 @@ make install # or make breaking-install
 ```
 Usage: python toc_gen.py <directory> [-e] [-o|-g]
 ```
-_<directory> must be a first argument_
+_\<directory\> must be a first argument_
 
 ### Flags description
 
