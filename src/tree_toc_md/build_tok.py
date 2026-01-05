@@ -1,6 +1,6 @@
 import os
 
-from tree_toc_md.constants import INDENT_STEP
+from tree_toc_md.constants import INDENT_STEP, MAX_LENGTH
 from tree_toc_md.str_formatting import (
     encode_for_github,
     escape_for_wikilink,
@@ -61,16 +61,20 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str,
         else:  # github
             encoded_path = encode_for_github(relative_path)
             lines.append(f"{indent}- [{display_name}]({encoded_path})")
-
         if use_h1:
             h1 = extract_h1(filepath)
             if h1:
-                h1_clean = truncate(h1)
-                if format_type == 'obsidian':
-                    h1_escaped = escape_for_wikilink(h1_clean)
-                    lines.append(f"{indent}{INDENT_STEP}{h1_escaped}")
+                h1_indent = indent + INDENT_STEP + INDENT_STEP
+
+                if len(h1) > MAX_LENGTH:
+                    h1_content = f"<details><summary>{truncate(h1)}</summary>{h1}</details>"
                 else:
-                    lines.append(f"{indent}{INDENT_STEP}{h1_clean}")
+                    h1_content = h1
+
+                if format_type == 'obsidian':
+                    h1_content = escape_for_wikilink(h1_content)
+
+                lines.append(f"{h1_indent}{h1_content}")
 
     for directory in subdirs:
         dir_path = os.path.join(root_dir, directory)
