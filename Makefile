@@ -5,7 +5,7 @@ run:
 	poetry run toc-md
 
 build:
-	rm dist/*
+	rm -f dist/*
 	poetry build
 
 package-install:
