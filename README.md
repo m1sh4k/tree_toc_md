@@ -11,14 +11,13 @@ Usage: python toc_gen.py <directory> [-e] [-o|-g]
 ```
 _<directory> must be a first argument_
 
-### Flags sescription
+### Flags description
 
 - `-h` — help message
 - `-e` _(optional)_ — add H1 heading below the filenames
 - `-o` — make links to files in Obsidian (Wikilinks) format
 - `-g` — make links to files in Github format (url encoded) (default)
 
-### Available flags
 
 ## Makefile commands
 
