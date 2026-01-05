@@ -15,7 +15,7 @@ def main():
         print("Options:", file=sys.stderr)
         print("  -e          Include H1 headings from files", file=sys.stderr)
         print("  -h          Help (this message)", file=sys.stderr)
-        print("  -w          Obsidian format (Wikilinks)", file=sys.stderr)
+        print("  -o          Obsidian format (Wikilinks)", file=sys.stderr)
         print("  -g          GitHub/Gitea format (default)", file=sys.stderr)
         sys.exit(1)
 
