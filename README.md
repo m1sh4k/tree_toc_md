@@ -1,8 +1,17 @@
-## Installation
+## Building & Installation
+
+### Build uisng poetry
 ```bash
 make build
 make install # or make breaking-install
 ```
+
+### Install via pip
+Check out `.whl` file in releases section and install with
+```bash
+pip install /path/to/package.whl
+```
+
 
 ## Usage
 
