@@ -67,9 +67,11 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str,
                 h1_indent = indent + INDENT_STEP + INDENT_STEP
 
                 if len(h1) > MAX_LENGTH:
-                    h1_content = f"<details>\
-                    <summary>{truncate(h1)}</summary>{h1}\
-                    </details>"
+                    h1_content = (
+                        f"<details>"
+                        f"<summary>{truncate(h1)}</summary>{h1}"
+                        f"</details>"
+                    )
                 else:
                     h1_content = h1
 
