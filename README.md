@@ -16,12 +16,12 @@ pip install /path/to/package.whl
 ## Usage
 
 ```
-Usage: python toc_gen.py <directory> [-e] [-o|-g]
+Usage: toc-md -d <dir> [-r <root>] [-e] [-o|-g]
 ```
-_\<directory\> must be a first argument_
 
 ### Flags description
-
+- `-d` — root dir for tree
+- `-r` _(optional)_ — Root directory for calculating relative links (default: current working directory )
 - `-h` — help message
 - `-e` _(optional)_ — add H1 heading below the filenames
 - `-o` — make links to files in Obsidian (Wikilinks) format
