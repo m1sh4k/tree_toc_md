@@ -25,11 +25,13 @@ def truncate(text: str, max_length: int = MAX_LENGTH) -> str:
     return text
 
 
-def extract_display_name(name: str) -> str:
+def extract_display_name(name: str, numbered: bool) -> str:
     match = re.match(r'^\d+\.\s+(.+)$', name)
-    if match:
-        return match.group(1)
-    return name
+    if not match:
+        return name
+    else:
+        return name if numbered else match.group(1)
+
 
 
 def extract_h1(filepath: str) -> str:

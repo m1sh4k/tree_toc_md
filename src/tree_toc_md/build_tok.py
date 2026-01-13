@@ -12,7 +12,7 @@ from tree_toc_md.str_formatting import (
 
 
 def build_toc(root_dir: str, use_h1: bool, format_type: str,
-              level: int = 0, root_path: str = '') -> str:
+              level: int = 0, root_path: str = '', numbered : bool = True) -> str:
     lines = []
     indent = INDENT_STEP * level
 
@@ -43,7 +43,7 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str,
     for file in files:
         filepath = os.path.join(root_dir, file)
         filename_only = os.path.splitext(file)[0]
-        display_name = truncate(extract_display_name(filename_only))
+        display_name = truncate(extract_display_name(filename_only, numbered=numbered))
 
         # Handle root_path logic safely
         start_path = root_path if root_path else root_dir
@@ -82,13 +82,14 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str,
 
     for directory in subdirs:
         dir_path = os.path.join(root_dir, directory)
-        display_dirname = truncate(extract_display_name(directory))
+        display_dirname = truncate(extract_display_name(directory, numbered=numbered))
 
         # Pass root_path recursively to maintain correct relative links
         current_root_path = root_path if root_path else root_dir
         subdir_toc = build_toc(
             dir_path, use_h1, format_type,
-            level + 1, current_root_path
+            level + 1, current_root_path,
+            numbered=numbered
         )
 
         if subdir_toc:
