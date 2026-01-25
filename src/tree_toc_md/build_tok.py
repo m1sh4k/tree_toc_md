@@ -61,7 +61,10 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str,
                 else relative_path
             )
             escaped_display = escape_for_wikilink(display_name)
-            lines.append(f"{indent}- [[{path_without_md}|{escaped_display}]]")
+            if numbered and order:
+                lines.append(f"{indent}{order} [[{path_without_md}|{escaped_display}]]")
+            else:
+                lines.append(f"{indent}- [[{path_without_md}|{escaped_display}]]")
         else:  # github
             encoded_path = encode_for_github(relative_path)
             if numbered and order:
