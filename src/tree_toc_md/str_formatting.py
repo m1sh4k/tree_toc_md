@@ -25,12 +25,16 @@ def truncate(text: str, max_length: int = MAX_LENGTH) -> str:
     return text
 
 
-def extract_display_name(name: str, numbered: bool) -> str:
-    match = re.match(r'^\d+\.\s+(.+)$', name)
-    if not match:
-        return name
+def extract_display_name(name: str, numbered: bool) -> tuple[str, str | None]:
+    diplay_name = re.match(r'^\d+\.\s+(.+)$', name)
+    order = re.match(r'^\d+\.', name)
+    if not diplay_name or not order:
+        return name, None
     else:
-        return name if numbered else match.group(1)
+        if numbered and order:
+            return diplay_name.group(1), order.group()
+        else:
+            return diplay_name.group(1), None
 
 
 

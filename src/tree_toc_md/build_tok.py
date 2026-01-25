@@ -12,7 +12,8 @@ from tree_toc_md.str_formatting import (
 
 
 def build_toc(root_dir: str, use_h1: bool, format_type: str,
-              level: int = 0, root_path: str = '', numbered : bool = True) -> str:
+              level: int = 0, root_path: str = '',
+              numbered : bool = True) -> str:
     lines = []
     indent = INDENT_STEP * level
 
@@ -43,7 +44,10 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str,
     for file in files:
         filepath = os.path.join(root_dir, file)
         filename_only = os.path.splitext(file)[0]
-        display_name = truncate(extract_display_name(filename_only, numbered=numbered))
+        long_diplay_name, order = extract_display_name(
+                                filename_only, numbered=numbered
+        )
+        display_name = truncate(long_diplay_name)
 
         # Handle root_path logic safely
         start_path = root_path if root_path else root_dir
@@ -60,7 +64,12 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str,
             lines.append(f"{indent}- [[{path_without_md}|{escaped_display}]]")
         else:  # github
             encoded_path = encode_for_github(relative_path)
-            lines.append(f"{indent}- [{display_name}]({encoded_path})")
+            if numbered and order:
+                lines.append(f"{indent}{order} "
+                             f"[{display_name}]({encoded_path})"
+                )
+            else:
+                lines.append(f"{indent}- [{display_name}]({encoded_path})")
         if use_h1:
             h1 = extract_h1(filepath)
             if h1:
@@ -82,7 +91,13 @@ def build_toc(root_dir: str, use_h1: bool, format_type: str,
 
     for directory in subdirs:
         dir_path = os.path.join(root_dir, directory)
-        display_dirname = truncate(extract_display_name(directory, numbered=numbered))
+
+        long_dirname, order = extract_display_name(
+                directory, numbered=numbered
+        )
+        display_dirname = truncate(
+            long_dirname
+        )
 
         # Pass root_path recursively to maintain correct relative links
         current_root_path = root_path if root_path else root_dir
